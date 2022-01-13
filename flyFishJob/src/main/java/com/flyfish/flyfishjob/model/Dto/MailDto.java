@@ -3,8 +3,10 @@ package com.flyfish.flyfishjob.model.Dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.File;
 
 /**
  * @Author: yumingjun
@@ -25,6 +27,10 @@ public class MailDto {
     @ApiModelProperty(value = "收件人邮箱,多个用逗号分隔", required = true)
     @NotEmpty(message = "收件人邮箱不能为空")
     private String[] toEmails;
+
+//    @ApiModelProperty(value = "附件", required = true)
+//    @NotEmpty(message = "附件")
+//    private File[] Attachments;
 
     @ApiModelProperty(value = "抄送人id,多个用逗号分隔", required = true)
     private String[] ccid;

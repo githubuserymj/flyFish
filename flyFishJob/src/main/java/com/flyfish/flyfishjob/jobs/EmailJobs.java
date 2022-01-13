@@ -29,9 +29,6 @@ public class EmailJobs {
 
     private static Logger LOGGER = LoggerFactory.getLogger(EmailJobs.class);
 
-    @Resource
-    private JavaMailSender mailSender;//一定要用@Autowired
-
     @Autowired
     private EmailUtil emailUtil;
 
