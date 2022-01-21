@@ -23,21 +23,20 @@ public class MethodBaseLogAspect {
     /**
      * 定义切点为@MethodBaseLog注解的类方法
      */
-    @Pointcut("@annotation(com.hikvision.pbg.sc.modules.annotation.MethodBaseLog)")
+    @Pointcut("@annotation(com.flyFish.flyFishCommon.annotation.MethodBaseLog)")
     public void pointCut(){}
 
     /**
      * 使用增强环绕通知处理，也可使用基础的@Before @After,@AfterReturning
      * @param proceedingJoinPoint
-     * @param <T>
      * @return
      */
     @Around(value = "pointCut()")
-    public <T> T around(ProceedingJoinPoint proceedingJoinPoint){
+    public Object around(ProceedingJoinPoint proceedingJoinPoint){
+        Object result = null;
         try {
             //前置通知
             long startTime = System.currentTimeMillis();
-
             Signature signature = proceedingJoinPoint.getSignature();
             /**
              * 获取参数值
@@ -56,7 +55,7 @@ public class MethodBaseLogAspect {
              */
             String methodName = signature.getName();
             String methodFullPathName = methodPath + "." + methodName;
-            Object result = proceedingJoinPoint.proceed();
+            result = proceedingJoinPoint.proceed();
             //返回通知
             long endTime = System.currentTimeMillis();
             long timeConsumer = endTime - startTime;
@@ -69,11 +68,10 @@ public class MethodBaseLogAspect {
             log.info(methodBaseLog.toString());
         } catch (Throwable e) {
             //异常通知
-//            e.printStackTrace();
             throw e;
         } finally {
             //最终通知
-            return null;
+            return result;
         }
     }
 
